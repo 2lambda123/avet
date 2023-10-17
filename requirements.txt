@@ -34,4 +34,4 @@ torch==1.14.0.dev20221115+cu117
 torchaudio==0.14.0.dev20221115+cu117
 torchvision==0.15.0.dev20221115+cu117
 typing_extensions==4.4.0
-urllib3==1.26.12
+urllib3==1.26.18
