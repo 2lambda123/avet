@@ -7,7 +7,6 @@ by Demetrio et al.
 import argparse
 import copy
 import os
-import random
 import sys
 
 import lief
@@ -20,6 +19,7 @@ from practical_manipulations.padding import padding_on_bytes
 from practical_manipulations.full_dos import full_dos_on_bytes
 from practical_manipulations.partial_dos import partial_dos_on_bytes
 from practical_manipulations.shift import shift_on_bytes
+import secrets
 
 
 def create_population_from_benign_sections(goodware_folder="input/goodware_samples/", population_size=10):
@@ -29,7 +29,7 @@ def create_population_from_benign_sections(goodware_folder="input/goodware_sampl
 
     goodware_list = os.listdir(goodware_folder)
 
-    random_sections = random.sample(goodware_list, population_size)
+    random_sections = secrets.SystemRandom().sample(goodware_list, population_size)
 
     for fn in random_sections:
         file_path = os.path.join(goodware_folder, fn)
@@ -105,10 +105,10 @@ def crossover(old_gen: list, population_size):
     offsprings = []
     while len(offsprings) != population_size:
         # pick two parents randomly
-        p1 = random.choice(old_gen)
-        p2 = random.choice(old_gen)
+        p1 = secrets.SystemRandom().choice(old_gen)
+        p2 = secrets.SystemRandom().choice(old_gen)
 
-        j = random.randrange(len(p1[1]))
+        j = secrets.SystemRandom().randrange(len(p1[1]))
         child = p1[0][:j] + p2[0][j:]
         offsprings.append((child, p1[1]))
 
@@ -121,8 +121,8 @@ def mutation(candidate, mutation_probability):
     """
 
     for i in range(len(candidate[1])):
-        if random.random() < mutation_probability:
-            candidate[1][i] = random.random()
+        if secrets.SystemRandom().random() < mutation_probability:
+            candidate[1][i] = secrets.SystemRandom().random()
 
     return candidate
 
