@@ -128,6 +128,28 @@ def mutation(candidate, mutation_probability):
 
 
 def main():
+    """Genetic Optimizer for Injected Bytes
+    Parameters:
+        - filename (str): Name of the file to be optimized.
+        - population_size (int): Number of candidates in the population. Default is 50.
+        - elitism (int): Number of top candidates to be selected for the next generation. Default is 10.
+        - iteration (int): Maximum number of iterations to run the optimizer. Default is 10.
+        - penalty_regularizer (float): Regularization parameter for the objective function. Default is 1e-6.
+        - section_size (int): Number of sections to be extracted from the benign file. Default is 10.
+        - practical_manipulation (str): Type of practical manipulation to be applied on the bytes. Default is "section_injection".
+    Returns:
+        - adv_bytes (bytearray): Optimized bytes of the file.
+    Processing Logic:
+        - Parses command line arguments using argparse.
+        - Loads a pre-trained model for classification.
+        - Extracts sections from the benign file.
+        - Creates a population of candidates using the extracted sections.
+        - Uses a genetic algorithm to optimize the bytes of the file.
+        - Outputs the optimized bytes as a new file.
+    Example:
+        main("benign.exe", population_size=100, iteration=20, practical_manipulation="padding")
+        # Runs the optimizer on the file "benign.exe" with a population size of 100, maximum of 20 iterations, and using padding as the practical manipulation technique."""
+    
     parser = argparse.ArgumentParser(
         prog='Genetic Optimizer',
         description="Genetic Optimizer for Injected Bytes"
