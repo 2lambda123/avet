@@ -7,11 +7,11 @@ Can be used standalone with random bytes or via genetic optimizer.
 """
 
 import os
-import random
 import string
 import sys
 
 import lief
+import secrets
 
 
 def section_injection_on_bytes(exe_bytes: bytearray, section_population, vector_t):
@@ -29,7 +29,7 @@ def section_injection_on_bytes(exe_bytes: bytearray, section_population, vector_
     exe_object: lief.PE.Binary = lief.parse(exe_bytes)
 
     new_section = lief.PE.Section(
-        ''.join(random.choice(string.ascii_lowercase) for i in range(5)))
+        ''.join(secrets.SystemRandom().choice(string.ascii_lowercase) for i in range(5)))
 
     new_section.content = content
     new_section.characteristics = lief.PE.SECTION_CHARACTERISTICS.MEM_DISCARDABLE
@@ -54,7 +54,7 @@ def section_injection(exe_path, amount):
     exe_object: lief.PE.Binary = lief.parse(exe_path)
 
     new_section = lief.PE.Section(
-        ''.join(random.choice(string.ascii_lowercase) for i in range(5)))
+        ''.join(secrets.SystemRandom().choice(string.ascii_lowercase) for i in range(5)))
     new_section.content = [ord(os.urandom(1)) for _ in range(amount)]
     new_section.characteristics = lief.PE.SECTION_CHARACTERISTICS.MEM_DISCARDABLE
     exe_object.add_section(new_section)
